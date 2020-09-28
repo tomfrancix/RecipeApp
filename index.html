@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>EASY FOOD</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="Content/bootstrap.min.css" rel="stylesheet">
+    <link href="Content/bootstrap-theme.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="Content/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="Content/bootstrap.min.js"></script>
+    <script src="Content/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+<!--    <link rel="stylesheet" type="text/css" href="animate.css">-->
+   
+</head>
+<body>
+    <div class="rounder">
+    <div class="banner">
+        <div class="jumbotron">
+            <div class="Title">
+                <h1 STYLE="font-family: 'Stardos Stencil', cursive;">EASY FOOD</h1>
+            </div>
+        </div>
+    </div>
+        </div>
+        <div class="topnav" style="text-align: center;">
+            <div class="container">
+                <div class="row">
+                <div class="col-md-2">
+                    <div class="transparentdiv"><li class="navlink" ><a class="active" href="#home">HOME</a></li><div class="colordiv"></div></div>
+                </div>
+                <div class="col-md-8 autocomplete">
+                    <form style="width:100%;margin-top:8px;"><input id="myInput" style="overflow: visible; padding-left:10px;padding-top:5px;width:100%; border-radius:15px;" type="text" placeholder="Search Over 360,000 Recipes...">
+                        
+                    <button id="search-button" type="submit">SEARCH</button>
+ 
+                        </form>
+                </div> 
+                <div class="col-md-2">
+                     <div class="transparentdiv"><li class="navlink"><a href="#about">ABOUT</a></li><div class="colordiv2"></div></div>
+                </div>
+                </div>
+            </div>
+            
+        </div>
+    <div class="rounder2">  
+    <div class="container-fluid background-image">
+       
+        <div class="row">
+           <div class="col-md-2">
+                <a id="phonefind" class="panel panel-heading" onclick="togglemenu('1')"><h3>FIND A RECIPE</h3></a>
+            <div id="menucat" class="quicklink">
+                <div  id="computerfind" class="panel panel-heading" onclick="togglemenu(1)"><h3>FIND A RECIPE</h3></div>
+            
+                        <ul id="categories"></ul> 
+                 <div id="productshead" class="panel panel-heading"><h3>PRODUCTS</h3></div>
+            
+                        <div class="row" id="products"></div>
+                
+            </div>
+           </div>
+            <div class="col-md-8">
+                <div class="quicklink main">
+<!--                    <div class="panel panel-heading"><h3>BROWSE RECIPES</h3></div>-->
+                    <ul id="listbox"></ul> 
+                </div>
+           </div>
+            <div class="col-md-2">
+            <div class="quicklink">
+                 <div class="panel panel-heading"><h3>ARTICLES</h3></div>
+                    <div id="sidebarRight"></div> 
+            </div>
+           </div>
+        </div>
+    </div>
+    <div class="colorfooter">
+    <footer>
+        <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="footer-element">
+                        <h3>Web Designer</h3>
+                        <p>Thomas Fahey</p>
+                        <h3>Contact</h3>
+                        <p>0553 9673 857</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="footer-element">
+                        <h3>Quick Links</h3>
+                        <p>About Easy Food</p>
+                        <p>Browse Recipes</p>
+                        <p>Work With Us</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="footer-element">
+                        <h3>Web Designer</h3>
+                        <p>Thomas Fahey</p>
+                        <h3>Contact</h3>
+                        <p>0553 9673 857</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            <br>
+            <a href="#" class="fa fa-facebook" style="font-size:40px;margin-left:150px;"></a>
+            <a href="#" class="fa fa-twitter" style="font-size:40px;margin-left:150px;"></a>
+            <a href="#" class="fa fa-pinterest" style="font-size:40px;margin-left:150px;"></a>
+            <a href="#" class="fa fa-instagram" style="font-size:40px;margin-left:150px;"></a>
+            <br /> <br />
+            <p style="color:white; margin-left:200px;font-size:80%;">&copy; @DateTime.Now.Year - TILLASCOPE -    By Thomas Fahey -      ALL RIGHTS RESERVED.</p>
+            <br />
+            </div>
+            
+            </div>
+        </div>
+    
+    </footer>
+    </div>
+    </div>
+    <script>
+      function search() {
+    const listbox = document.getElementById('listbox');
+    listbox.innerHTML = "<div class='loaderPage'><div class='loader'></div></div>";
+            var data = null;
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+	if (this.readyState === this.DONE) {
+		console.log(this.responseText);
+        var query=$('#myInput').val();
+	}
+});
+
+xhr.open("GET", "https://yummly2.p.rapidapi.com/feeds/search?" + input);
+xhr.setRequestHeader("x-rapidapi-host", "yummly2.p.rapidapi.com");
+xhr.setRequestHeader("x-rapidapi-key", "3da1afa133mshf93e5575c414e6fp194dd1jsne310a563b06b");
+ xhr.onload = function() {
+  // Begin accessing JSON data here
+        var data = JSON.parse(this.response)
+            console.log(data['feed']);
+        listbox.innerHTML = null;
+        
+        
+        for (i=1; i<50; i++) {
+            var number = 1;
+            var preparray=" ";
+            var ingredients = " ";
+            for (var x in data['feed'][i].content.preparationSteps) {
+                
+            preparray += "<h5>Step " + number + "</h5><p>" + data['feed'][i].content.preparationSteps[x] + "</p>";
+            number++;
+            }
+            for (var y in data['feed'][i].content.ingredientLines) {
+                if (data['feed'][i].content.ingredientLines[y].amount.metric.unit.plural == null) {
+            ingredients += "<tr><td style='text-align:right'>1</td><td>" + data['feed'][i].content.ingredientLines[y].ingredient + "</td></tr>";
+            number++;
+                } else {
+             ingredients += "<tr><td style='text-align:right'>" + data['feed'][i].content.ingredientLines[y].amount.metric.quantity + " " + data['feed'][i].content.ingredientLines[y].amount.metric.unit.plural + "</td><td>" + data['feed'][i].content.ingredientLines[y].ingredient + "</td></tr>";
+            number++;
+            }
+            }
+            listbox.innerHTML += "<div id='num"+[i]+"' onclick='getInfo(this);' class='col-md-3 results' style='padding:5px' ><div class='recipecard'><div class='imageholder' style='background-image:url(" + data['feed'][i].display.images + ");>' style='float:left;height:200px; margin-right:15px;'></div> <div class='titles' style='float:left;'><a><h5>'" + data['feed'][i].display.displayName + "</h5></a><p><span style='font-weight:bold;'>Time:  </span> " + data['feed'][i].content.details.totalTime + "</p></div><div class='detailblock'><div class='panel panel-body'><p style='text-align:center'>" + data['feed'][i].content.description.text + "</p></div><div class='ingredients'><div class='panel panel-heading'><h2>INGREDIENTS</h2></div><div class='panel panel-body'><table class='table' style='width:100%;'><tr><th style='text-align:right'>Quantity</th><th>Ingredient</th></tr>" + ingredients + "</table></div></div><div class='method'><div class='panel panel-heading'><h2>PREPARATION</h2></div><div class='panel panel-body'><p>" + preparray + "</p></div></div></div></div>"; 
+            
+}
+}
+xhr.send(data);
+      }
+    var countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre &amp; Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts &amp; Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad &amp; Tobago","Tunisia","Turkey","Turkmenistan","Turks &amp; Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];
+        
+var data = null;
+const ul = document.getElementById('categories'); 
+const pul = document.getElementById('products');
+        
+const right = document.getElementById('sidebarRight');
+var xhr = new XMLHttpRequest();
+var lhr = new XMLHttpRequest();
+xhr.withCredentials = false;
+xhr.addEventListener("readystatechange", function () {
+	if (this.readyState === this.DONE) {
+//		console.log(this.responseText);
+	}
+})
+xhr.open("GET", "https://yummly2.p.rapidapi.com/categories/list/");
+xhr.onload = function() {
+  // Begin accessing JSON data here
+var data = JSON.parse(this.response)
+console.log(data['browse-categories']);
+for (i=0; i<data['browse-categories'].length; i++) {
+    ul.innerHTML += "<li><a  onclick='getCategory(" + [i] + ");'><div class='categoryLinks'><img src='" + data['browse-categories'][i].display.iconImage + "' style='height:27px; margin-right:15px;'>   " + data['browse-categories'][i].display.displayName + "</div></a></li>";
+    pul.innerHTML += "<li><a href='https://yummly2.p.rapidapi.com/feeds/list?tag=" + data['browse-categories'][i].display.tag + "><div class='categoryLinks'><img src='" + data['shopping-categories'][i].display.categoryImage + "' style='height:50px; margin-right:15px;'>   " + data['shopping-categories'][i].display.displayName + "</div></a></li>";
+}
+}
+xhr.setRequestHeader("x-rapidapi-host", "yummly2.p.rapidapi.com");
+xhr.setRequestHeader("x-rapidapi-key", "3da1afa133mshf93e5575c414e6fp194dd1jsne310a563b06b");
+
+xhr.send(data);
+        const listbox = document.getElementById('listbox');
+    var data = null;
+    var xhr = new XMLHttpRequest();
+        xhr.withCredentials = false;
+        xhr.addEventListener("readystatechange", function () {
+	       if (this.readyState === this.DONE) {
+		      console.log(this.responseText);
+	       }
+        });
+    var url = new URL("https://yummly2.p.rapidapi.com/feeds/list?tag=list.article.rev-chron&limit=40&start=0");
+    xhr.open("GET", url);
+    xhr.onload = function() {
+  // Begin accessing JSON data here
+        var data = JSON.parse(this.response)
+            console.log(data['feed']);
+        
+        for (i=1; i<7; i++) {
+            
+            right.innerHTML += "<div class='row' style='padding:5px' ><div class='recipecard'><div class='imageholder' style='background-image:url(" + data['feed'][i].display.images + ");>' style='float:left;height:200px; margin-right:15px;'></div> <div style='float:left;height:100%;width:auto;'><a onclick='getInfo(" + [i] + ")'><h5>'" + data['feed'][i].display.displayName + "</h5></a><p><span style='font-weight:bold;'>Time:  </span> " + data['feed'][i].content.details.totalTime + "</p></div></div></div>"; 
+}
+}
+xhr.setRequestHeader("x-rapidapi-host", "yummly2.p.rapidapi.com");
+xhr.setRequestHeader("x-rapidapi-key", "3da1afa133mshf93e5575c414e6fp194dd1jsne310a563b06b");
+xhr.send(data);
+
+
+   
+//  ---------------------------------------------------------------------
+function getCategory(i) {
+    
+    togglemenu('0');
+    const listbox = document.getElementById('listbox');
+    listbox.innerHTML = "<div class='loaderPage'><div class='loader'></div></div>";
+    var data = null;
+    var xhr = new XMLHttpRequest();
+        xhr.withCredentials = false;
+        xhr.addEventListener("readystatechange", function () {
+	       if (this.readyState === this.DONE) {
+		      console.log(this.responseText);
+               
+   
+	       }
+        });
+    if (i == '0'){
+var url = new URL("https://yummly2.p.rapidapi.com/feeds/list?tag=list.recipe.other.guided&limit=40&start=0");
+    } else if (i == '1'){
+var url = new URL("https://yummly2.p.rapidapi.com/feeds/list?tag=list.article.rev-chron&limit=40&start=0");
+    } else if (i == '2'){
+var url = new URL("https://yummly2.p.rapidapi.com/feeds/list?tag=list.recipe.search_based:source:Seconds");
+    } else  if (i == '3'){
+var url = new URL("https://yummly2.p.rapidapi.com/feeds/list?tag=list.recipe.popular");
+    } else  if (i == '4'){
+var url = new URL("https://yummly2.p.rapidapi.com/feeds/list?tag=list.recipe.trending");
+    } else  if (i == '5'){
+var url = new URL("https://yummly2.p.rapidapi.com/feeds/list?tag=list.recipe.search_based:display:Seasonal,search:exp_sseas&limit=40&start=0");
+    } else  if (i == '6'){
+var url = new URL("https://yummly2.p.rapidapi.com/feeds/list?tag=list.recipe.search_based:search:exp_sqe&limit=40&start=0");
+    } else  if (i == '7'){
+var url = new URL("https://yummly2.p.rapidapi.com/feeds/list?tag=list.recipe.search_based:fq:attribute_s_mv:cuisine\^cuisine\-kid\-friendly&limit=40&start=0");
+    } else  if (i == '8'){
+var url = new URL("https://yummly2.p.rapidapi.com/feeds/list?tag=list.articles&limit=40&start=0");
+    } else  if (i == '9'){
+var url = new URL("https://yummly2.p.rapidapi.com/feeds/list?tag=list.articles&limit=40&start=0");
+    } else {
+var url = new URL("fail");
+    } 
+xhr.open("GET", url);
+    xhr.onload = function() {
+  // Begin accessing JSON data here
+        var data = JSON.parse(this.response)
+            console.log(data['feed']);
+        listbox.innerHTML = null;
+        
+        
+        for (i=1; i<50; i++) {
+            var number = 1;
+            var preparray=" ";
+            var ingredients = " ";
+            for (var x in data['feed'][i].content.preparationSteps) {
+                
+            preparray += "<h5>Step " + number + "</h5><p>" + data['feed'][i].content.preparationSteps[x] + "</p>";
+            number++;
+            }
+            for (var y in data['feed'][i].content.ingredientLines) {
+                if (data['feed'][i].content.ingredientLines[y].amount.metric.unit.plural == null) {
+            ingredients += "<tr><td style='text-align:right'>1</td><td>" + data['feed'][i].content.ingredientLines[y].ingredient + "</td></tr>";
+            number++;
+                } else {
+             ingredients += "<tr><td style='text-align:right'>" + data['feed'][i].content.ingredientLines[y].amount.metric.quantity + " " + data['feed'][i].content.ingredientLines[y].amount.metric.unit.plural + "</td><td>" + data['feed'][i].content.ingredientLines[y].ingredient + "</td></tr>";
+            number++;
+            }
+            }
+            listbox.innerHTML += "<div id='num"+[i]+"' onclick='getInfo(this);' class='col-md-3 results' style='padding:5px' ><div class='recipecard'><div class='imageholder' style='background-image:url(" + data['feed'][i].display.images + ");>' style='float:left;height:200px; margin-right:15px;'></div> <div class='titles' style='float:left;'><a><h5>'" + data['feed'][i].display.displayName + "</h5></a><p><span style='font-weight:bold;'>Time:  </span> " + data['feed'][i].content.details.totalTime + "</p></div><div class='detailblock'><div class='panel panel-body'><p style='text-align:center'>" + data['feed'][i].content.description.text + "</p></div><div class='ingredients'><div class='panel panel-heading'><h2>INGREDIENTS</h2></div><div class='panel panel-body'><table class='table' style='width:100%;'><tr><th style='text-align:right'>Quantity</th><th>Ingredient</th></tr>" + ingredients + "</table></div></div><div class='method'><div class='panel panel-heading'><h2>PREPARATION</h2></div><div class='panel panel-body'><p>" + preparray + "</p></div></div></div></div>"; 
+            
+}
+}
+xhr.setRequestHeader("x-rapidapi-host", "yummly2.p.rapidapi.com");
+xhr.setRequestHeader("x-rapidapi-key", "3da1afa133mshf93e5575c414e6fp194dd1jsne310a563b06b");
+xhr.send(data);
+}
+function togglemenu(i) {
+    var menu = document.getElementById('menucat');
+    if (i == '0'){
+    menu.style.display = 'none';
+    } else if (i == '1') {
+    menu.style.display = 'block';
+    }
+}
+function getInfo(elem) {
+    var groupitems = document.getElementsByClassName("results");
+    var single = document.getElementById('listbox');
+    var ide = elem.id;
+    var element = document.getElementById(ide);
+    for (i=0; i<groupitems.length; i++){
+        if (groupitems[i].id == ide) {
+        groupitems[i].classList.add("mystyle");
+    } else {
+        groupitems[i].style.display = 'none';
+    }
+    }
+//    this.style.backgroundColor = 'black';
+//    const listbox = document.getElementById('listbox');
+//    listbox.innerHTML = "<div class='loaderPage'><div class='loader'></div></div>";
+//    var data = null;
+//
+//    var xhr = new XMLHttpRequest();
+//        xhr.withCredentials = false;
+//
+//        xhr.addEventListener("readystatechange", function () {
+//	       if (this.readyState === this.DONE) {
+//		      console.log(this.responseText);
+//	       }
+//        });
+//let url = new URL("https://yummly2.p.rapidapi.com/feeds/list?tag=list.recipe.popular&limit=40&start=0");
+//xhr.open("GET", url);
+//    xhr.onload = function() {
+//  // Begin accessing JSON data here
+//        var data = JSON.parse(this.response)
+//            console.log(data['feed']);
+//        
+//        
+//        for (i=1; i<50; i++) {
+//            
+//            if (i == id) {
+//            listbox.innerHTML += "<div class='col-md-3' style='padding:5px' ><div class='recipecard'><div class='imageholder' style='background-image:url(" + data['feed'][i].display.images + ");>' style='float:left;height:200px; margin-right:15px;'></div> <div style='float:left;height:100%;width:auto;'><h5>" + data['feed'][i].display.displayName + "</h5><p><span style='font-weight:bold;'>Time:  </span> " + data['feed'][i].content.details.totalTime + "</p></div></div></div>";
+//            } else {
+//              listbox.innerHTML = 'haha';
+//            }
+//}
+//}
+//xhr.setRequestHeader("x-rapidapi-host", "yummly2.p.rapidapi.com");
+//xhr.setRequestHeader("x-rapidapi-key", "3da1afa133mshf93e5575c414e6fp194dd1jsne310a563b06b");
+//
+//xhr.send(data);
+}
+var unirest = require("unirest");
+
+var req = unirest("GET", "https://yummly2.p.rapidapi.com/feeds/auto-complete");
+
+req.query({
+	"q": "chicken soup"
+});
+
+req.headers({
+	"x-rapidapi-host": "yummly2.p.rapidapi.com",
+	"x-rapidapi-key": "3da1afa133mshf93e5575c414e6fp194dd1jsne310a563b06b"
+});
+        
+        function autocomplete(inp, arr) {
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+  var currentFocus;
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      /*close any already open lists of autocompleted values*/
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+      for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+              b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  /*execute a function presses a key on the keyboard:*/
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        currentFocus++;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        e.preventDefault();
+        if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+  function addActive(x) {
+    /*a function to classify an item as "active":*/
+    if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+      x[i].parentNode.removeChild(x[i]);
+    }
+  }
+}
+/*execute a function when someone clicks in the document:*/
+document.addEventListener("click", function (e) {
+    closeAllLists(e.target);
+});
+}
+    </script>
+    <script>
+autocomplete(document.getElementById("myInput"), countries);
+</script>
+</body>
+</html>
